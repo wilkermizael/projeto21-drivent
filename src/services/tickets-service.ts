@@ -1,7 +1,6 @@
-import { TicketType } from '@/protocols';
 import { ticketsRepository } from '@/repositories';
 
-async function ticketsType(): Promise<TicketType[]> {
+async function ticketsType() {
   const ticketType = await ticketsRepository.findMany();
   return ticketType;
 }

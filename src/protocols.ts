@@ -11,6 +11,9 @@ export type RequestError = {
   message: string;
 };
 
+export type ViaCEPAddressError = {
+  error: boolean;
+};
 export type ReturnCepError = {
   logradouro: string;
   complemento: string;
@@ -18,10 +21,14 @@ export type ReturnCepError = {
   cidade: string;
   uf: string;
 };
+export type AddressEnrollment = {
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+};
 
-export type TicketType = {
-  name: string;
-  price: number;
-  isRemote: boolean;
-  includesHotel: boolean;
+export type CEP = {
+  cep: string;
 };

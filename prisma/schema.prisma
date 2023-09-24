@@ -51,7 +51,7 @@ model Enrollment {
   Address   Address[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Ticket    Ticket[]
+  Ticket    Ticket?  
 }
 
 model Address {
@@ -81,13 +81,29 @@ model TicketType {
 }
 
 model Ticket {
-  id           Int        @id @default(autoincrement())
-  status       String     @default("RESERVED")
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id])
-  ticketType   TicketType @relation(fields: [ticketTypeId], references: [id])
-  enrollmentId Int
+  id           Int          @id @default(autoincrement())
   ticketTypeId Int
+  TicketType   TicketType   @relation(fields: [ticketTypeId], references: [id])
+  enrollmentId Int          @unique
+  Enrollment   Enrollment   @relation(fields: [enrollmentId], references: [id])
+  status       TicketStatus
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  Payment      Payment?
+}
 
+enum TicketStatus {
+  RESERVED
+  PAID
+}
+
+model Payment {
+  id             Int      @id @default(autoincrement())
+  ticketId       Int      @unique
+  Ticket         Ticket   @relation(fields: [ticketId], references: [id])
+  value          Int
+  cardIssuer     String
+  cardLastDigits String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
