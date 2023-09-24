@@ -28,7 +28,14 @@ export type AddressEnrollment = {
   cidade: string;
   uf: string;
 };
-
+export type Ticket = {
+  id: number;
+  status: string;
+  enrollmentId: number;
+  ticketTypeId: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
 export type CEP = {
   cep: string;
 };
