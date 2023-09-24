@@ -18,3 +18,10 @@ export type ReturnCepError = {
   cidade: string;
   uf: string;
 };
+
+export type TicketType = {
+  name: string;
+  price: number;
+  isRemote: boolean;
+  includesHotel: boolean;
+};

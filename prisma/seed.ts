@@ -17,9 +17,32 @@ async function main() {
   }
 
   console.log({ event });
+
+  let ticket = await prisma.ticketType.findFirst();
+  if(!ticket){
+    await prisma.ticketType.createMany({
+      data: [
+        {
+          name: 'Presencial',
+          price: 500,
+          isRemote: false,
+          includesHotel: true,
+        },
+        {
+          name: 'Online',
+          price: 200,
+          isRemote: true,
+          includesHotel: false,
+        },
+    
+      ],
+    });
+  }
 }
 
+
 main()
+  
   .catch((e) => {
     console.error(e);
     process.exit(1);
