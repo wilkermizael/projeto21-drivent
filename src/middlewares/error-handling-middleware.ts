@@ -53,6 +53,9 @@ export function handleApplicationErrors(
   if (err.name === 'EnrollmentNotFoundError') {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
+  if (err.name === 'NotEnrollmentRequest') {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
 
   if (err.name === 'InvalidCEPError') {
     return res.status(httpStatus.BAD_REQUEST).send(err.message);
@@ -73,6 +76,7 @@ export function handleApplicationErrors(
       message: err.message,
     });
   }
+
   /* eslint-disable-next-line no-console */
   console.error(err);
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({

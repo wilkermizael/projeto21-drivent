@@ -1,8 +1,8 @@
-import { Ticket } from '@/protocols';
+import { Ticket, TicketResponse } from '@/protocols';
 import { ticketsRepository } from '@/repositories';
 
-async function getTickets() {
-  const ticketType = await ticketsRepository.findMany('ticket');
+async function getTickets(userId: number) {
+  const ticketType = await ticketsRepository.findFirst(userId);
   return ticketType;
 }
 
@@ -11,8 +11,8 @@ async function ticketsType() {
   return ticketType;
 }
 export type CreateTicket = Omit<Ticket, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
-async function postTicket(dataTicket: CreateTicket): Promise<Ticket> {
-  const ticketById = await ticketsRepository.upsert(dataTicket);
+async function postTicket(dataTicket: CreateTicket, userId: number): Promise<TicketResponse> {
+  const ticketById = await ticketsRepository.create(dataTicket, userId);
   return ticketById;
 }
 
